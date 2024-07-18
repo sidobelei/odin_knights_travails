@@ -57,3 +57,8 @@ def possible_moves(coordinates)
   end 
   return moves
 end
+
+knight_moves([3,3],[4,3])
+knight_moves([0,0],[3,3])
+knight_moves([3,3],[0,0])
+knight_moves([0,0],[7,7])
