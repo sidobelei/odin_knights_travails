@@ -1,13 +1,29 @@
 def knight_moves(start_point, end_point)
-  #check if start_point is valid
-  #check if end_point is valid
-  #return error message if not
-  return nil unless valid?(start_point) && valid?(end_point)
-  #build adjacency list for possible moves
+  return puts "Invalid Coordinate(s)" unless valid?(start_point) && valid?(end_point)
   list = create_adjacency_list
-  #search list keep count of moves
-  #return moves and message
-  return true
+  routes = Array.new([[start_point]])
+  end_route = nil
+  until end_route
+    if routes.length == 1
+      children_queue = list[routes[0][0]]
+    else
+      children_queue = list[routes[0].last]
+    end
+    children_queue.each do |position|
+      route = routes[0].dup.push(position)
+      routes.push(route)
+      break if route.last == end_point
+    end
+    routes.each_with_index do |route, index|
+      if !route.find_index(end_point).nil?
+        end_route = routes[index]
+        break
+      end
+    end
+    routes.shift
+  end
+  puts "You made it in #{end_route.length - 1} moves! Here's your path:"
+  end_route.each {|point| print "#{point}\n"}
 end
 
 def valid?(coordinates)
